@@ -15,35 +15,64 @@
     }
 
     function playRound(computerSelection, playerSelection){
-        var lowerCasePlayerSelection = playerSelection.toLowerCase();
-        if(lowerCasePlayerSelection == "rock"){
+        if(playerSelection == "rock"){
             if(computerSelection == "scissors"){ 
                 return "You win! Rock breaks scissors";
                 }
             else if(computerSelection== "paper"){
-                return "You loose! Paper covers scissors!";
-            } else{return "Draw";}
-        } else if(lowerCasePlayerSelection=="paper"){
+                return "You loose! Paper covers rock!";
+            } else if (computerSelection=="rock"){return "Draw";}
+        } else if(playerSelection=="paper"){
             if(computerSelection == "rock"){
-                return "You Win! Paper covers scissors!";
+                return "You win! Paper covers rock!";
             } else if (computerSelection == "scissors"){
                 return "You loose! Scissors cut paper!";
-            } else{return "Draw";}
+            } else if (computerSelection=="paper"){return "Draw";}
         } else{
             if(computerSelection=="paper"){
-                return "You Win! Scissors cut paper";
+                return "You win! Scissors cut paper";
             } else if (computerSelection=="rock"){
-                return "You loose! Rock covers paper!"
-            } else{
+                return "You loose! Rock breaks scissors!"
+            } else if (computerSelection=="scissors"){
                 return "Draw";
             }
         }      
     }
 
-    const playerSelection = 'rock';
-    const computerSelection = computerPlay();
+    function game(){
+        var score =0;
+        var result = "";
+        for(var i =0;i<5;i++){
+            // does player play need 'var' declaration ?
+            var playerPlay = window.prompt("Rock, paper, or scissors?").toLowerCase();
+            result = playRound(computerPlay(),playerPlay);
+            if(result.includes('win')){
+                score++;
+                console.log(result + " | Score: "+score);
+                } else if(result == "Draw"){
+                    i--;
+                    console.log(result+ "\b | You have 1+ turn | "+ score);
+                } else{
+                    console.log(result + " | Score: "+score);
+                }
+            
+        }
+        if (score>2){
+            console.log("****** You won! | Score: "+ score+ " ******");
+        } else{
+            console.log("... you can try again | Score: "+ score);
+        }
+    }
+
+    game();
+
+
+
+
+    // const playerSelection = 'rock';
+    // const computerSelection = computerPlay();
     
-    console.log(playRound(playerSelection, computerSelection));
+    // console.log(playRound(playerSelection, computerSelection));
 
   </script>
 </body>
